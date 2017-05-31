@@ -9,6 +9,7 @@
   "author": "Jhovany Gonzalez",
   "license": "ISC",
   "dependencies": {
-    "electron": "^1.6.10"
+    "electron": "^1.6.10",
+    "howler": "^2.0.3"
   }
 }

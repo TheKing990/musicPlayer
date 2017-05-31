@@ -1,12 +1,55 @@
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
+const Menu = electron.Menu
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
 
+
+var template = [
+   {},
+   {
+     label: 'Select Music',
+     submenu: [
+       {
+         label:'Select Folder',
+         accelerator:'CommandOrControl+O',
+         click:function(){
+           console.log('click select');
+         }
+       },
+       {
+         label:'Song Control',
+         submenu:[
+           {
+             label:'Pause',
+             accelerator:'CommandOrControl+E',
+             click:function(){
+               console.log('pause');
+             }
+           },
+           {
+             label:'Next',
+             accelerator:'CommandOrControl+N',
+             click:function(){
+               console.log('next');
+             }
+           },
+           {
+             label:'Previous',
+             accelerator:'CommandOrControl+P',
+             click:function(){
+               console.log('prev');
+             }
+           }
+         ]
+       }
+     ]
+   }
+ ];
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -17,6 +60,9 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
+
+
+
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -24,11 +70,12 @@ function createWindow () {
     slashes: true
   }))
 
+
   // var menu = Menu.buildFromTemplate(menuTemplate);
   // mainWindow.setMenu(menu);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+   mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -38,6 +85,9 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -51,6 +101,10 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+app.on('ready', function () {
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
 })
 
 app.on('activate', function () {
