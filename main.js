@@ -20,32 +20,54 @@ var template = [
          click:function(){
            console.log('click select');
          }
-       },
+       }
+     ]// select musinc submenu
+   }, // select music
+   {
+     label: 'Play Music',
+     submenu: [
        {
-         label:'Song Control',
-         submenu:[
-           {
-             label:'Pause',
-             accelerator:'CommandOrControl+E',
-             click:function(){
-               console.log('pause');
-             }
-           },
-           {
-             label:'Next',
-             accelerator:'CommandOrControl+N',
-             click:function(){
-               console.log('next');
-             }
-           },
-           {
-             label:'Previous',
-             accelerator:'CommandOrControl+P',
-             click:function(){
-               console.log('prev');
-             }
-           }
-         ]
+         label:'Play',
+         accelerator:'CommandOrControl+p',
+         click:function(){
+           console.log('You play the song');
+         }
+       }
+     ]
+   },
+   {
+     label: 'Pause Music',
+     submenu: [
+       {
+         label:'Pause',
+         accelerator:'CommandOrControl+s',
+         click:function(){
+           console.log('You Stop the music');
+         }
+       }
+     ]
+   },
+   {
+     label: 'Next',
+     submenu: [
+       {
+         label:'Next Song',
+         accelerator:'CommandOrControl+n',
+         click:function(){
+           console.log('You skip the song');
+         }
+       }
+     ]
+   },
+   {
+     label: 'Previous',
+     submenu: [
+       {
+         label:'Prev',
+         accelerator:'CommandOrControl+b',
+         click:function(){
+           console.log('You play the previous song');
+         }
        }
      ]
    }
