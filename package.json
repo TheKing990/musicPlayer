@@ -1,0 +1,14 @@
+{
+  "name": "musicapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Jhovany Gonzalez",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.6.10"
+  }
+}
