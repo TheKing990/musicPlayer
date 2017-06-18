@@ -145,7 +145,12 @@ app.on('activate', function () {
 
 
 function openThing() {
-  console.log(dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}))
+  var things = dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
+
+  //select the music and send it to index.html  and also play music
+  console.log(things);
+  console.log(things[2]);
+  //
 }
 
 // In this file you can include the rest of your app's specific main process
