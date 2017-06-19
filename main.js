@@ -145,13 +145,20 @@ app.on('activate', function () {
 
 
 function openThing() {
-  var things = dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
+  //'openDirectory', 'multiSelections'
+dialog.showOpenDialog({properties: ['openFile']} ,
+function (filepath) {
+  console.log(filepath[0]);
+  mainWindow.webContents.send('model-music',filepath[0]);
 
-  //select the music and send it to index.html  and also play music
-  console.log(things);
-  console.log(things[2]);
-  //
+})
 }
+
+  //select the music and send it to index.html to show all the music   and also play music
+//  console.log(things);
+  //console.log(things[2]);
+  //
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
