@@ -2,6 +2,8 @@ const electron = require('electron')
 // Module to control application life.
 const app = electron.app
 const Menu = electron.Menu
+
+const {dialog} = require('electron')
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -18,7 +20,7 @@ var template = [
          label:'Select Folder',
          accelerator:'CommandOrControl+O',
          click:function(){
-           console.log('click select');
+           openThing();
          }
        }
      ]// select musinc submenu
@@ -111,6 +113,7 @@ function createWindow () {
 
 
 
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -129,6 +132,9 @@ app.on('ready', function () {
   Menu.setApplicationMenu(menu)
 })
 
+
+
+
 app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -136,6 +142,23 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+
+function openThing() {
+  //'openDirectory', 'multiSelections'
+dialog.showOpenDialog({properties: ['openFile']} ,
+function (filepath) {
+  console.log(filepath[0]);
+  mainWindow.webContents.send('model-music',filepath[0]);
+
+})
+}
+
+  //select the music and send it to index.html to show all the music   and also play music
+//  console.log(things);
+  //console.log(things[2]);
+  //
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
