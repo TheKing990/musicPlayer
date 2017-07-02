@@ -18,25 +18,28 @@ ipc.on('model-music',function(event, arg) {
 })
 
 function PlayMe() {
-  document.getElementById('playbutton').innerHTML = 'Stop';
-  sound = new Howl({
-    src: [args]
-  });
+  if (isPlaying === false) {
+
+    document.getElementById('playbutton').innerHTML = 'Stop';
+    sound = new Howl({
+      src: [args]
+    });
+
+
+
+      sound.play();
+      isPlaying = true;
+  }
+  else {
+    document.getElementById('playbutton').innerHTML = 'Play';
+    isPlaying = false;
+    sound.stop();
+
+  }
+
+
+}
 
 
 // when you click stop and play the sound should stop or play
 // also the button text should change
-
-  if (isPlaying === false) {
-
-    sound.play();
-    isPlaying = true;
-  }
-  else{
-
-    isPlaying = false;
-      document.getElementById('playbutton').innerHTML = 'Play';
-      sound.stop(args);
-  }
-
-}
