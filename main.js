@@ -9,6 +9,8 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
+var mypath;
+const fs = require("fs");
 
 
 var template = [
@@ -145,14 +147,30 @@ app.on('activate', function () {
 
 
 function openThing() {
+
+
+
+
   //'openDirectory', 'multiSelections'
-dialog.showOpenDialog({properties: ['openFile']} ,
+dialog.showOpenDialog({properties: ['openDirectory']} ,
 function (filepath) {
   console.log(filepath[0]);
+//mypath = filepath;
+
   mainWindow.webContents.send('model-music',filepath[0]);
 
-})
-}
+
+
+});
+
+
+
+
+} // end of function
+
+
+
+
 
   //select the music and send it to index.html to show all the music   and also play music
 //  console.log(things);
