@@ -2,37 +2,39 @@
 //<script src="/node_modules/howler"></script>
 const ipc = require('electron').ipcRenderer;
 const fs = require("fs");
+var sound = require('howler');
 var arr1 = new Array();
 
+var args;
 
- var sound = require('howler');
- var args;
+var isPlaying =  false;
 
- var isPlaying =  false;
+ipc.on('model-music',function(event, arg)
+{
 
-ipc.on('model-music',function(event, arg) {
 
-  fs.readdir(arg, (err, dir) => {
-  //console.log(dir);
-  for(var i = 0; i < dir.length; i++) {
-    var filePath = dir[i];
-    arr1.push(filePath); 
-  console.log(filePath)
-  //console.log("here is the array " + arr1[i]);
+  arr1 = fs.readdirSync(arg);
+  for (var i = 0; i < arr1.length; i++) {
+
+   arr1[i] = arg + "/" + arr1[i];
   }
 
-  });
 
-  console.log("hey fuck face" + arg);
   document.getElementById('helloP').innerHTML = arg;
+
   console.log("here is the array " + arr1.length);
+
+  for (var i = 0; i < arr1.length; i++)
+  {
+    console.log(arr1[i]);
+  }
 
 
     args = arg;
 
 
 
-})
+});
 
 
 function PlayMe() {
@@ -40,7 +42,7 @@ function PlayMe() {
 
     document.getElementById('playbutton').innerHTML = 'Stop';
     sound = new Howl({
-      src: [args]
+      src: [arr1[1]]
     });
 
 

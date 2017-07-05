@@ -162,11 +162,13 @@ function (filepath) {
 
 
 });
+}
 
 
 
 
-} // end of function
+
+ // end of function
 
 
 
