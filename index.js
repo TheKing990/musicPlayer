@@ -11,8 +11,13 @@ var isPlaying =  false;
 
 ipc.on('model-music',function(event, arg)
 {
+console.log("everything work");
+for (var i = 0; i < arg.length; i++) {
+  console.log(arg[i]);
+}
+arr1 = arg;
 
-
+/*
   arr1 = fs.readdirSync(arg);
   for (var i = 0; i < arr1.length; i++) {
 
@@ -31,6 +36,7 @@ ipc.on('model-music',function(event, arg)
 
 
     args = arg;
+    */
 
 
 
@@ -42,7 +48,7 @@ function PlayMe() {
 
     document.getElementById('playbutton').innerHTML = 'Stop';
     sound = new Howl({
-      src: [arr1[1]]
+      src: [arr1[1].songpath]
     });
 
 
