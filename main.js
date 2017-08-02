@@ -7,11 +7,17 @@ const {dialog} = require('electron')
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
-const path = require('path')
+//const path = require('path')
 const url = require('url')
-var mypath;
+var mypath = [];
+var mysongs = [];
 const fs = require("fs");
+var Datastore = require('nedb');
+var path = require('path')
 
+var Datastore = require('nedb');
+var dbpath = new Datastore({ filename: __dirname + '/to/paths.db', autoload: true });
+var songs = new Datastore({ filename: __dirname + '/to/songs.db', autoload: true });
 
 var template = [
    {},
@@ -132,6 +138,9 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
+//   dbpath.remove({}, { multi: true }, function (err, numRemoved) {
+// });
+  loadCurrentLibary();
 })
 
 
@@ -155,13 +164,159 @@ function openThing() {
 dialog.showOpenDialog({properties: ['openDirectory']} ,
 function (filepath) {
   console.log(filepath[0]);
-//mypath = filepath;
+  //mypath = filepath;
 
-  mainWindow.webContents.send('model-music',filepath[0]);
+  //open a libary
+  dbpath.findOne({ path: filepath[0] }, function(err, doc) {
 
+    //check if db for the libary
+    //console.log('Found user:', doc.name);
+    if (err) {
+      console.log("there is an error opeing libary");
+    }
+    else {
+
+        if (doc == null) {
+            //changin the current one to false;
+            dbpath.update({current: true}, {$set: {current: false}}, {multi: true}, function (err, numReplaced) {
+                // numReplaced = 3
+                // Field 'system' on Mars, Earth, Jupiter now has value 'solar system'
+            });
+
+            var currentPath = {
+                path: filepath[0],
+                current: true
+            }
+            mypath.push(currentPath);
+
+
+            dbpath.insert(mypath, function (err, docs) {
+
+            });
+            var arr1 = fs.readdirSync(filepath[0]);
+
+            for (var i = 0; i < arr1.length; i++) {
+                var arrSongs = {
+                    path: filepath[0],
+                    songpath: filepath[0] + "/" + arr1[i],
+                    count: 0,
+                    name: "Unknow",
+                    artist: "Unknow",
+                    Album: "Unknow"
+                }
+                mysongs.push(arrSongs);
+                console.log(arrSongs);
+            }
+            songs.insert(mysongs, function (err, docs) {
+
+            });
+
+            songs.find({path: filepath[0]}, function (err, docs) {
+                // docs is an array containing documents Mars, Earth, Jupiter
+                // If no document is found, docs is equal to []
+                if (err) {
+                    console.log("there is an error finding song array");
+                }
+                else {
+                  if (docs == null) {
+                    console.log("there is something wrong!");
+
+                  } else {
+                    console.log(docs);
+                    console.log("bitch");
+
+                    mainWindow.webContents.send('model-music', docs);
+                  }
+                }
+
+
+            });
+
+
+        }
+        else {
+            //we had current path in db
+
+
+            songs.find({path: filepath[0]}, function (err, docs) {
+                // docs is an array containing documents Mars, Earth, Jupiter
+                // If no document is found, docs is equal to []
+                if (err) {
+                    console.log("there is an error finding song array");
+                }
+                else {
+
+                  if (docs == null) {
+                    console.log("there is something wrong!");
+
+                  } else {
+                    console.log(docs);
+                    console.log("what sup");
+
+                    mainWindow.webContents.send('model-music', docs);
+                  }
+                }
+
+
+            });
+        }
+    }
+});
+
+
+  ///mainWindow.webContents.send('model-music',filepath[0]);
+
+});
+}
+
+
+
+
+function loadCurrentLibary() {
+
+  dbpath.findOne({ current: true }, function(err, doc) {
+
+    if(err) {
+      console.log("There is a error loading the libary");
+    }
+    else {
+
+      if (doc == null) {
+        console.log("path db is empty");
+      } else {
+    console.log('Found current path:' +  doc.path);
+
+    //load songs current of the path and send it
+    songs.find({ path: doc.path }, function (err, docs) {
+      // docs is an array containing documents Mars, Earth, Jupiter
+      // If no document is found, docs is equal to []
+      if (err) {
+        console.log("there is an error finding song array");
+      }
+      else {
+
+        if (docs == null) {
+          console.log("there is something wrong!");
+
+        } else {
+          console.log(docs);
+
+          mainWindow.webContents.send('model-music', docs);
+        }
+      }
+
+
+
+
+    });
+  }
+
+
+  }
 
 
 });
+
 }
 
 
