@@ -11,11 +11,16 @@ var isPlaying =  false;
 
 ipc.on('model-music',function(event, arg)
 {
-console.log("everything work");
-for (var i = 0; i < arg.length; i++) {
-  console.log(arg[i]);
-}
-arr1 = arg;
+console.log(arg[0].songpath);
+
+ sound = new Howl({
+  src: [arg[0].songpath]
+ });
+ sound.play();
+
+
+
+  //sound.play();
 
 /*
   arr1 = fs.readdirSync(arg);
