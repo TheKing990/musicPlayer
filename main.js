@@ -138,11 +138,21 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
+
 //   dbpath.remove({}, { multi: true }, function (err, numRemoved) {
 // });
-  loadCurrentLibary();
+//
+//   songs.remove({}, { multi: true }, function (err, numRemoved) {
+// });
+
+
 })
 
+app.on('ready', () => {
+  mainWindow.webContents.on('did-finish-load', () => {
+    loadCurrentLibary();
+  })
+})
 
 
 
@@ -156,9 +166,6 @@ app.on('activate', function () {
 
 
 function openThing() {
-
-
-
 
   //'openDirectory', 'multiSelections'
 dialog.showOpenDialog({properties: ['openDirectory']} ,
@@ -272,44 +279,49 @@ function (filepath) {
 
 
 
-function loadCurrentLibary() {
+function loadCurrentLibary()
+{
 
-  dbpath.findOne({ current: true }, function(err, doc) {
+  dbpath.findOne({ current: true }, function(err, doc)
+  {
 
     if(err) {
       console.log("There is a error loading the libary");
     }
-    else {
+    else
+    {
 
-      if (doc == null) {
+      if (doc == null)
+       {
         console.log("path db is empty");
-      } else {
-    console.log('Found current path:' +  doc.path);
+      } else
+      {
+        console.log('Found current path:' +  doc.path);
 
-    //load songs current of the path and send it
-    songs.find({ path: doc.path }, function (err, docs) {
-      // docs is an array containing documents Mars, Earth, Jupiter
-      // If no document is found, docs is equal to []
-      if (err) {
-        console.log("there is an error finding song array");
-      }
-      else {
+        //load songs current of the path and send it
+        songs.find({path: doc.path}, function (err, docs) {
+          console.log("ther is the doc.path" + doc.path);
+            // docs is an array containing documents Mars, Earth, Jupiter
+            // If no document is found, docs is equal to []
+            if (err) {
+                console.log("there is an error finding song array");
+            }
+            else {
 
-        if (docs == null) {
-          console.log("there is something wrong!");
+              if (docs == null) {
+                console.log("there is something wrong!");
 
-        } else {
-          console.log(docs);
+              } else {
+                console.log(docs);
+                console.log("notsup");
 
-          mainWindow.webContents.send('model-music', docs);
-        }
-      }
+                mainWindow.webContents.send('model-music', docs);
+              }
+            }
 
 
-
-
-    });
-  }
+        });
+    }
 
 
   }
@@ -318,22 +330,3 @@ function loadCurrentLibary() {
 });
 
 }
-
-
-
-
-
- // end of function
-
-
-
-
-
-  //select the music and send it to index.html to show all the music   and also play music
-//  console.log(things);
-  //console.log(things[2]);
-  //
-
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
