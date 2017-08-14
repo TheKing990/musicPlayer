@@ -260,7 +260,7 @@ function (filepath) {
                     console.log(docs);
                     console.log("what sup");
 
-                    mainWindow.webContents.send('model-music', docs);
+                    mainWindow.webContents.sendSync('model-music', docs);
                   }
                 }
 

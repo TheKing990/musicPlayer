@@ -3,47 +3,24 @@
 const ipc = require('electron').ipcRenderer;
 const fs = require("fs");
 var sound = require('howler');
-var arr1 = new Array();
-
-var args;
-
 var isPlaying =  false;
 
-ipc.on('model-music',function(event, arg)
+ ipc.on('model-music',function(event, arg)
 {
+  songUI(arg);
+
+
+  for (var i = 0; i < arr1.length; i++) {
+    console.log(arr1[i]);
+  }
+//  LoadSongMusic();
 console.log(arg[0].songpath);
 
  sound = new Howl({
   src: [arg[0].songpath]
  });
  sound.play();
-
-
-
-  //sound.play();
-
-/*
-  arr1 = fs.readdirSync(arg);
-  for (var i = 0; i < arr1.length; i++) {
-
-   arr1[i] = arg + "/" + arr1[i];
-  }
-
-
-  document.getElementById('helloP').innerHTML = arg;
-
-  console.log("here is the array " + arr1.length);
-
-  for (var i = 0; i < arr1.length; i++)
-  {
-    console.log(arr1[i]);
-  }
-
-
-    args = arg;
-    */
-
-
+return arg;
 
 });
 
@@ -71,6 +48,33 @@ function PlayMe() {
 
 }
 
+function songUI(arg) {
+
+
+    for (var i = 0; i < arg.length; i++) {
+      const table =  document.createElement('tr');
+
+
+      let newName = document.createElement('td');
+      newName.innerHTML = arg[i].name;
+      table.appendChild(newName);
+
+      let newArtist = document.createElement('td');
+      newArtist.innerHTML = arg[i].artist;
+      table.appendChild(newArtist);
+
+      let newAlbum = document.createElement('td');
+      newAlbum.innerHTML = arg[i].Album;
+      table.appendChild(newAlbum);
+
+      let newCount = document.createElement('td');
+      newCount.innerHTML = String(arg[i].name);
+      table.appendChild(newCount);
+
+      document.getElementById('mytable').appendChild(table); //tr
+    }
+
+}
 
 // when you click stop and play the sound should stop or play
 // also the button text should change
