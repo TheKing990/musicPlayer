@@ -3,15 +3,13 @@
 const ipc = require('electron').ipcRenderer;
 const fs = require("fs");
 var sound = require('howler');
-var arr1 = new Array();
-
-var args;
-
 var isPlaying =  false;
 
-ipc.on('model-music',function(event, arg)
+ ipc.on('model-music',function(event, arg)
 {
-  arr1 = arg;
+  songUI(arg);
+
+
   for (var i = 0; i < arr1.length; i++) {
     console.log(arr1[i]);
   }
@@ -22,7 +20,7 @@ console.log(arg[0].songpath);
   src: [arg[0].songpath]
  });
  sound.play();
-
+return arg;
 
 });
 
@@ -49,48 +47,32 @@ function PlayMe() {
 
 
 }
-function LoadSongMusic (){
-  console.log("HEEEeeeeeeeey");
+
+function songUI(arg) {
 
 
+    for (var i = 0; i < arg.length; i++) {
+      const table =  document.createElement('tr');
 
-
-
-
-
-
-  for (var i = 0; i < arr1.length; i++) {
-    const name = document.getElementById('select_Name_id');
-    const artist = document.getElementById('select_Artist_id');
-    const album = document.getElementById('select_Album_id');
-    const count = document.getElementById('select_Count_id');
 
       let newName = document.createElement('td');
+      newName.innerHTML = arg[i].name;
+      table.appendChild(newName);
+
       let newArtist = document.createElement('td');
+      newArtist.innerHTML = arg[i].artist;
+      table.appendChild(newArtist);
+
       let newAlbum = document.createElement('td');
+      newAlbum.innerHTML = arg[i].Album;
+      table.appendChild(newAlbum);
+
       let newCount = document.createElement('td');
+      newCount.innerHTML = String(arg[i].name);
+      table.appendChild(newCount);
 
-    newName.innerHTML = arr1[i].name;
-    newArtist.innerHTML = arr1[i].artist;
-    newAlbum.innerHTML = arr1[i].Album;
-    newCount.innerHTML = String(arr1[i].count);
-    name.appendChild(newName);
-    artist.appendChild(newArtist);
-    count.appendChild(newCount);
-
-     document.getElementById('select_Name_id').appendChild(newName);
-   document.getElementById('select_Artist_id').appendChild(newArtist);
-     document.getElementById('select_Album_id').appendChild(newAlbum);
-    document.getElementById('select_Count_id').appendChild(newCount);
-
-    console.log("there is that is going on " + arr1);
-  }
-
-
-}
-
-function shit1(){
-  var shit =  document.getElementsByClassName('createShit');
+      document.getElementById('mytable').appendChild(table); //tr
+    }
 
 }
 
