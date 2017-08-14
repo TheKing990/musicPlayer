@@ -11,38 +11,17 @@ var isPlaying =  false;
 
 ipc.on('model-music',function(event, arg)
 {
+  arr1 = arg;
+  for (var i = 0; i < arr1.length; i++) {
+    console.log(arr1[i]);
+  }
+//  LoadSongMusic();
 console.log(arg[0].songpath);
 
  sound = new Howl({
   src: [arg[0].songpath]
  });
  sound.play();
-
-
-
-  //sound.play();
-
-/*
-  arr1 = fs.readdirSync(arg);
-  for (var i = 0; i < arr1.length; i++) {
-
-   arr1[i] = arg + "/" + arr1[i];
-  }
-
-
-  document.getElementById('helloP').innerHTML = arg;
-
-  console.log("here is the array " + arr1.length);
-
-  for (var i = 0; i < arr1.length; i++)
-  {
-    console.log(arr1[i]);
-  }
-
-
-    args = arg;
-    */
-
 
 
 });
@@ -70,7 +49,50 @@ function PlayMe() {
 
 
 }
+function LoadSongMusic (){
+  console.log("HEEEeeeeeeeey");
 
+
+
+
+
+
+
+
+  for (var i = 0; i < arr1.length; i++) {
+    const name = document.getElementById('select_Name_id');
+    const artist = document.getElementById('select_Artist_id');
+    const album = document.getElementById('select_Album_id');
+    const count = document.getElementById('select_Count_id');
+
+      let newName = document.createElement('td');
+      let newArtist = document.createElement('td');
+      let newAlbum = document.createElement('td');
+      let newCount = document.createElement('td');
+
+    newName.innerHTML = arr1[i].name;
+    newArtist.innerHTML = arr1[i].artist;
+    newAlbum.innerHTML = arr1[i].Album;
+    newCount.innerHTML = String(arr1[i].count);
+    name.appendChild(newName);
+    artist.appendChild(newArtist);
+    count.appendChild(newCount);
+
+     document.getElementById('select_Name_id').appendChild(newName);
+   document.getElementById('select_Artist_id').appendChild(newArtist);
+     document.getElementById('select_Album_id').appendChild(newAlbum);
+    document.getElementById('select_Count_id').appendChild(newCount);
+
+    console.log("there is that is going on " + arr1);
+  }
+
+
+}
+
+function shit1(){
+  var shit =  document.getElementsByClassName('createShit');
+
+}
 
 // when you click stop and play the sound should stop or play
 // also the button text should change
