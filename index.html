@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="index.js"> </script>
+    <link href="./node_modules/clusterize.js/clusterize.css" rel="stylesheet">
+<script src="./node_modules/clusterize.js/clusterize.min.js"></script>
 
 
   </head>
@@ -43,17 +45,37 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-6">
-          <div id="songsUI" class="container">
-            <table id="mytable" class="table-striped table">
-              <tr>
-                <th>Name</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th>Count</th>
-              </tr>
-            </table>
+          <div class="clusterize">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+    </table>
+    <div id="scrollArea" class="clusterize-scroll">
+      <table class="table table-striped">
+        <tbody id="contentArea" class="clusterize-content">
+          <tr class="clusterize-no-data">
 
-          </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+  $(document).on('click',".table", function(event) {
+      var rowindex = $(this).parents("tr").index();
+      console.log('rowindex' +  rowindex);
+  });
+
+
+  </script>
 
 
         </div>

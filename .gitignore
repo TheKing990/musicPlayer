@@ -2,3 +2,5 @@
 \.idea/
 
 to/
+
+node_modules/clusterize\.js/

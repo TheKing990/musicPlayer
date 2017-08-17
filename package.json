@@ -9,6 +9,7 @@
   "author": "Jhovany Gonzalez",
   "license": "ISC",
   "dependencies": {
+    "clusterize.js": "^0.17.6",
     "electron": "^1.6.10",
     "fs": "0.0.1-security",
     "howler": "^2.0.3",
