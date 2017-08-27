@@ -90,7 +90,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 900, height: 800})
+  mainWindow = new BrowserWindow({width: 1200, height: 800})
 
 
 
@@ -233,6 +233,7 @@ function (filepath) {
                     console.log("bitch");
 
                     mainWindow.webContents.send('model-music', docs);
+                    
                   }
                 }
 
@@ -261,6 +262,7 @@ function (filepath) {
                     console.log("what sup");
 
                     mainWindow.webContents.send('model-music', docs);
+
                   }
                 }
 
@@ -316,6 +318,7 @@ function loadCurrentLibary()
                 console.log("notsup");
 
                 mainWindow.webContents.send('model-music', docs);
+
               }
             }
 

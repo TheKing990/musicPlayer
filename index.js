@@ -4,23 +4,16 @@
 
 const ipc = require('electron').ipcRenderer;
 const fs = require("fs");
-var sound = require('howler');
+// var sound = require('howler');
 var isPlaying =  false;
 var   arr1 ;
 var Clusterize = require('clusterize.js');
+//window.$ = window.jQuery = require('jquery');
 
  ipc.on('model-music',function(event, arg)
 {
   //songUI(arg);
   loadUI(arg);
-
-
-
-   for (var i = 0; i < arg.length; i++) {
-     console.log(arg[i]);
-   }
-//  LoadSongMusic();
-console.log(arg[0].songpath);
 
  // sound = new Howl({
  //  src: [arg[0].songpath]
@@ -28,36 +21,10 @@ console.log(arg[0].songpath);
  // sound.play();
 
 
+
 });
 console.log(arr1);
 
-function PlayMe() {
-  // if (isPlaying === false) {
-  //
-  //   document.getElementById('playbutton').innerHTML = 'Stop';
-  //   sound = new Howl({
-  //     src: [arr1[1].songpath]
-  //   });
-  //
-  //
-  //
-  //     sound.play();
-  //     isPlaying = true;
-  // }
-  // else {
-  //   document.getElementById('playbutton').innerHTML = 'Play';
-  //   isPlaying = false;
-  //   sound.stop();
-  //
-  // }
-
-  sound = new Howl({
-  src: ['/Volumes/SD/Music/downloaded by MediaHuman/Led Zeppelin - Whole Lotta Love (HQ).mp3']
-   });
-   sound.play();
-
-
-}
 
 function loadUI(array) {
   let data = [];
@@ -66,20 +33,23 @@ function loadUI(array) {
   let item = ' ';
   let string_td = ' ';
   for (var i = 0; i < array.length; i++) {
+    td = "<td><button id=\"currentplay\"><span class=\"glyphicon glyphicon-play\" aria-hidden=\"true\"></span></button></td>";
+    string_td += td;
+
     item = array[i].name;
-    td = "<td>" + item+"</td>";
+    td = "<td>" + item + "</td>";
     string_td += td;
 
     item = array[i].artist;
-    td = "<td>" + item+"</td>";
+    td = "<td>" + item + "</td>";
     string_td += td;
 
     item = array[i].Album;
-    td = "<td>" + item+"</td>";
+    td = "<td>" + item + "</td>";
     string_td += td;
 
     item = String(array[i].count);
-    td = "<td>" + item+"</td>";
+    td = "<td>" + item + "</td>";
     string_td += td;
 
     tr = "<tr>" + string_td + "</tr>";
@@ -89,11 +59,11 @@ function loadUI(array) {
   console.log(data);
 
 
-   let clusterize = new Clusterize({
-  rows: data,
-  scrollId: 'scrollArea',
-  contentId: 'contentArea'
-});
+  let clusterize = new Clusterize({
+    rows: data,
+    scrollId: 'scrollArea',
+    contentId: 'contentArea'
+  });
 
 // document.getElementById('contentArea').onclick = function(e) {
 //   e = e || event;
@@ -106,13 +76,13 @@ function loadUI(array) {
 
 
 
-}
-function songUI(arg) {
+
+  function songUI(arg) {
 
 
     for (var i = 0; i < arg.length; i++) {
-      const table =  document.createElement('tr');
-    //  table.addEventListener("click", (function(){ alert(this.rowIndex); }));
+      const table = document.createElement('tr');
+      //  table.addEventListener("click", (function(){ alert(this.rowIndex); }));
 
 
       let newName = document.createElement('td');
@@ -134,6 +104,7 @@ function songUI(arg) {
       document.getElementById('mytable').appendChild(table); //tr
     }
 
+  }
 }
 
 
