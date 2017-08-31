@@ -4,4 +4,6 @@
 to/
 
 node_modules/clusterize\.js/
-node_modules/
+node_modules/*
+
+config.js
