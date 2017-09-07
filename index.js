@@ -23,7 +23,7 @@ var Clusterize = require('clusterize.js');
 
 
 });
-console.log(arr1);
+//console.log(arr1);
 
 
 function loadUI(array) {

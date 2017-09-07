@@ -6,7 +6,12 @@ var m = require('./config.js');
 
 
 request('https://www.reddit.com/r/music.json', function (error, response, body) {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  console.log('body:', body); // Print the HTML for the Google homepage.
+  var obj = JSON.parse(body);
+  console.log(obj);
+  console.log(obj.data.children[10].data.title);
+  console.log(obj.data.children[10].data.link_flair_text);
+  console.log(obj.data.children[10].data.permalink);
+  console.log(obj.data.children[10].data.author);
+  console.log(obj.data.children[10].data.url);
+
 });
