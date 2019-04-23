@@ -9,14 +9,14 @@
   "author": "Jhovany Gonzalez",
   "license": "ISC",
   "dependencies": {
-    "clusterize.js": "^0.17.6",
-    "electron": "^1.6.10",
+    "clusterize.js": "^0.18.1",
+    "electron": "^4.1.4",
     "fs": "0.0.1-security",
-    "howler": "^2.0.3",
-    "jquery": "^1.9.1",
+    "howler": "^2.1.2",
+    "jquery": "^3.4.0",
     "nedb": "^1.8.0",
     "path": "^0.12.7",
     "redditwrap.js": "^7.0.0",
-    "request": "^2.81.0"
+    "request": "^2.88.0"
   }
 }
